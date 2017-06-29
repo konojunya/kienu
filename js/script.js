@@ -1,21 +1,40 @@
 (function($){
 
+  // クリップボードへコピー
+  var cb = new Clipboard(".copy")
+  cb.on("success",function(e){
+    alert("コピーしました！")
+    e.clearSelection()
+  })
+
   $("#submitButton").on("click",function(e){
     var form = $("#form").get()[0];
 
     var formData = new FormData(form);
 
     $.ajax({
+      async: true,
       url: "http://makki0250.com:3000/api/upload",
       type: "post",
       dataType: "json",
       data: formData,
       processData: false,
-      contentType: false
+      contentType: false,
+      xhr: function(){
+        var XHR = $.ajaxSettings.xhr();
+        if(XHR.upload){
+          XHR.upload.addEventListener("progress",function(e){
+            var progress = parseInt(e.loaded/e.total*100);
+            $(".progress-bar").animate({ width: progress + "%" })
+          },false)
+        }
+        return XHR;
+      }
     })
     .done(function(res){
       var downloadUrl = "http://makki0250.com:3000" + res.download_url
-      alert(downloadUrl)
+      $("#download-url").val(downloadUrl)
+      $(".downloadedElement").show()
     })
     .fail(function(jqXHR,textStatus,error){
       console.log("ERROR: ",jqXHR,textStatus,error)
@@ -24,34 +43,5 @@
     return false
 
   })
-
-  $(".copy").on("click",function(e){
-    var url = $(".downloadedElement .url").text()
-    if(execCopy(url)){
-      alert('コピーできました');
-    }
-    else {
-      alert('このブラウザでは対応していません');
-    }
-  })
-
-  function execCopy(string){
-    var temp = document.createElement('textarea');
-
-    temp.value = string;
-    temp.selectionStart = 0;
-    temp.selectionEnd = temp.value.length;
-
-    var s = temp.style;
-    s.position = 'fixed';
-    s.left = '-100%';
-
-    document.body.appendChild(temp);
-    temp.focus();
-    var result = document.execCommand('copy');
-    temp.blur();
-    document.body.removeChild(temp);
-    return result;
-  }
 
 })(jQuery)

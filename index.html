@@ -8,8 +8,11 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  
+  <div class="progress-bar"></div>
 
   <div class="container">
+
     <div class="row">
       <h1>kienu</h1>
     </div>
@@ -31,15 +34,16 @@
       </form>
     </div>
 
-    <div class="row downloadedElement">
+    <div class="row _hidden downloadedElement">
       <p class="url-label">ダウンロードURL</p>
-      <p class="url">asdfafs</p>
-      <button class="copy">コピー</button>
+      <input type="text" id="download-url" value="" size="60">
+      <button class="copy btn btn-primary" data-clipboard-target="#download-url">コピー</button>
     </div>
 
   </div>
 
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="js/clipboard.min.js"></script>
   <script src="js/script.js"></script>
 </body>
 </html>

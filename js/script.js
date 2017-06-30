@@ -15,7 +15,7 @@
     $.ajax({
       async: true,
       url: "http://tmp.fun:3000/api/upload",
-      type: "post",
+      type: "POST",
       dataType: "json",
       data: formData,
       processData: false,

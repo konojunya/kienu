@@ -1,5 +1,9 @@
 (function($){
 
+  // base URL
+  var BASE_URL = "https://acf5c874.ngrok.io"
+  var UPLOAD_ENDPOINT = "/api/upload"
+
   // クリップボードへコピー
   var cb = new Clipboard(".copy")
   cb.on("success",function(e){
@@ -14,7 +18,7 @@
 
     $.ajax({
       async: true,
-      url: "http://tmp.fun:3000/api/upload",
+      url: BASE_URL + UPLOAD_ENDPOINT,
       type: "POST",
       dataType: "json",
       data: formData,
@@ -34,7 +38,7 @@
       }
     })
     .done(function(res){
-      var downloadUrl = "http://tmp.fun:3000" + res.download_url
+      var downloadUrl = BASE_URL + res.download_url
       $("#download-url").val(downloadUrl)
       $(".downloadedElement").show()
       $(".progress-bar").hide().css({ width: "0%" })

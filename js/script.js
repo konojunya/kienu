@@ -14,7 +14,7 @@
 
     $.ajax({
       async: true,
-      url: "http://makki0250.com:3000/api/upload",
+      url: "http://tmp.fun:3000/api/upload",
       type: "post",
       dataType: "json",
       data: formData,
@@ -34,7 +34,7 @@
       }
     })
     .done(function(res){
-      var downloadUrl = "http://makki0250.com:3000" + res.download_url
+      var downloadUrl = "http://tmp.fun:3000" + res.download_url
       $("#download-url").val(downloadUrl)
       $(".downloadedElement").show()
       $(".progress-bar").hide().css({ width: "0%" })

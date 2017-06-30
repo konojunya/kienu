@@ -20,12 +20,14 @@
       data: formData,
       processData: false,
       contentType: false,
+      crossDomain: true,
+      cache: false,
       xhr: function(){
         var XHR = $.ajaxSettings.xhr();
         if(XHR.upload){
           XHR.upload.addEventListener("progress",function(e){
             var progress = parseInt(e.loaded/e.total*100);
-            $(".progress-bar").animate({ width: progress + "%" })
+            $(".progress-bar").css({ width: progress + "%" })
           },false)
         }
         return XHR;
@@ -35,6 +37,7 @@
       var downloadUrl = "http://makki0250.com:3000" + res.download_url
       $("#download-url").val(downloadUrl)
       $(".downloadedElement").show()
+      $(".progress-bar").hide().css({ width: "0%" })
     })
     .fail(function(jqXHR,textStatus,error){
       console.log("ERROR: ",jqXHR,textStatus,error)

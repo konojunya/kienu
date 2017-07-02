@@ -1,7 +1,7 @@
 (function($){
 
   // base URL
-  var BASE_URL = "https://acf5c874.ngrok.io"
+  var BASE_URL = "http://tmp.fun"
   var UPLOAD_ENDPOINT = "/api/upload"
 
   // クリップボードへコピー
